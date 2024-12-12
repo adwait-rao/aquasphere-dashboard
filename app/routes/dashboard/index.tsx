@@ -5,13 +5,25 @@ import FlexibleLineChart from "@/components/FlexibleLineChart";
 import BiAxialBarGraph from "@/components/BiAxialBarGraph";
 import CustomBarChart from "@/components/BiAxialBarGraph";
 import { ModeToggle } from "@/components/mode-toggle";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DamContext } from "@/components/Providers/DamProvider";
 import { waterData } from "@/data";
+import axios from "axios";
 
 export default function Index() {
   const damContext = useContext(DamContext);
   // const { currentDam } = damContext;
+
+  useEffect(() => {
+    const fetchWaterMetrics = async () => {
+      const result = await axios.post(
+        "https://aquasphere.onrender.com/api/dashboard"
+      );
+
+      console.log(result.data);
+    };
+    fetchWaterMetrics();
+  }, []);
 
   return (
     <div>
@@ -25,11 +37,11 @@ export default function Index() {
         title="Multi-Metric Analysis"
         lineColors={["#ff0000", "#00ff00", "#0000ff"]}
       /> */}
-      <FlexibleLineChart
+      {/* <FlexibleLineChart
         data={waterData}
         title="Water utilized vs Total water"
         // lineColors={}
-      />
+      /> */}
 
       <div style={{ width: "100%", height: "400px" }}>
         <CustomBarChart
